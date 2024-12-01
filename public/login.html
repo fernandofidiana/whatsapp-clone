@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/chat.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Chat</title>
+  </head>
+  <body>
+    <div class="login">
+        <input
+            type="text"
+            name="correo"
+            id="correo"
+            placeholder="¿Cual es tu correo electrónico?"
+        />
+        borrame : usuario@gmail.com
+        <br>
+        <input
+            type="password"
+            name="clave"
+            id="clave"
+            placeholder="Escribe la contraseña..."
+        />
+        borrame : 1A2B3C
+        <button onclick="entrar()">Entrar</button>
+    </div>
+    <script>
+        const Error= false
+        
+        function entrar(){
+            const correo=document.getElementById('correo').value
+            const clave=document.getElementById('clave').value
+            const options = {
+                method: 'POST',
+                headers: {
+                apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ6dnRmb3lycHJleW1oaG9zcWZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg1NDU4NTMsImV4cCI6MjA0NDEyMTg1M30.HIL5UR_i5cmrUegdU6yZFSHwAOqilOAs8lhCUGSgtxo',
+                'Content-Type': 'application/json'
+                },
+                body: '{"email":"'+correo+'","password":"'+clave+'"}'
+            };
+            
+            fetch('https://bzvtfoyrpreymhhosqfz.supabase.co/auth/v1/token?grant_type=password', options)
+                .then(response => response.json())
+                .then(data => {
+                    sessionStorage.setItem('access_token',data["access_token"])
+                    console.log(data["user"]["id"])
+                    sessionStorage.setItem('userid',data["user"]["id"])
+                    window.location.href = "/"
+                    })
+                .catch(err => {console.error(err)
+                    Error=(true)
+                });
+            }
+        
+    </script>
+  </body>
+</html>
