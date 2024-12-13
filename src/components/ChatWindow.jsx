@@ -40,7 +40,7 @@ function ChatWindow({ selectedChat,yourChat}) {
         .then(response => response.json())
         .then(usur => {
         console.log(yourChat)
-        usur.filter((e)=>e.userid != yourChat ).map((e)=> {
+        usur.filter((e)=>e.userid == yourChat ).map((e)=> {
           setYourname(e.name)
           })
         console.log(yourname)

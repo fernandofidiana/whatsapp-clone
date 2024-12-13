@@ -39,7 +39,7 @@ function ChatList({ onSelectChat }) {
   })
   return (
     <div className="chat-list">
-      {usuData.filter((e)=>e.userid==sessionStorage.getItem('userid')).map((c) => (
+      {usuData.filter((e)=>e.userid!=sessionStorage.getItem('userid')).map((c) => (
         <Chat key={c.id} chat={c} onSelectChat={onSelectChat} lastMessages={mensajesProp}></Chat>
       ))}
     </div>
